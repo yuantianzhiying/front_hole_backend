@@ -8,8 +8,9 @@ class User(Base):
     __tablename__ = "users"
     
     id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True, nullable=False)  # 用户名
+    password_hash = Column(String, nullable=False)  # 密码哈希
     device_id = Column(String, unique=True, index=True, nullable=True)  # 设备指纹
-    openid = Column(String, unique=True, index=True, nullable=True)  # 微信OpenID
     is_banned = Column(Boolean, default=False)  # 是否被封禁
     is_admin = Column(Boolean, default=False)  # 是否是管理员
     created_at = Column(DateTime(timezone=True), server_default=func.now())

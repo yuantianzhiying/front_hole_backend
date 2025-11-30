@@ -1,20 +1,17 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import Optional
 
 
 class UserBase(BaseModel):
+    username: str
     device_id: Optional[str] = None
-    openid: Optional[str] = None
-
-
-class UserCreate(UserBase):
-    pass
 
 
 class UserLogin(BaseModel):
-    code: Optional[str] = None  # 微信登录code
-    device_id: Optional[str] = None  # 设备指纹
+    """用户登录请求"""
+    username: str = Field(..., min_length=3, max_length=50, description="用户名")
+    password: str = Field(..., min_length=6, max_length=100, description="密码")
 
 
 class UserResponse(BaseModel):
